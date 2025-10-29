@@ -1,0 +1,25 @@
+@import 'tailwindcss';
+
+:root {
+    --brand-purple-bright: #BF208F;
+    --brand-purple: #6F064F;
+    --brand-black: #2C1C24;
+    --brand-pastel-purple: #E3D2E6;
+    --brand-orange: #F6AB7A;
+    --brand-orange-pastel: #DECDAD;
+    --off-white: #FBF9FA;
+    --white: #FFFFFF;
+}
+
+main {
+    margin: 0 0.3rem
+}
+
+.card {
+    padding: 0.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 1rem 0.5rem rgba(0, 0, 0, 0.1);
+    gap: 1rem;
+    background-color: var(--white);
+    overflow: scroll;
+}
