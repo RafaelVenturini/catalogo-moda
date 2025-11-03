@@ -1,35 +1,36 @@
-<script>
+<script lang="ts">
 	import ProductImages
-		from './product-section/images/product-images.svelte';
+		from '@components/product-page/product-section/images/product-images.svelte';
+	import ChangeQnty
+		from '@components/product-page/product-section/variations/change-qnty.svelte';
+	import { getContext } from 'svelte';
+	import { toBRL } from '@lib/assets/utils/money/toBRL';
 	import ProductSizes
-		from './product-section/variations/product-sizes.svelte';
-	import ChangeQnty from './product-section/variations/change-qnty.svelte';
+		from '@components/product-page/product-section/variations/product-sizes.svelte';
 
-	let price = (Math.random() * 2000).toLocaleString('pt-BR', {
-		style: 'currency',
-		currency:
-			'BRL'
-	});
-	let ref = Math.floor(Math.random() * 5000);
+	const productCtx = $state.raw(getContext('productCtx'));
+	const product = $derived(productCtx.product);
 </script>
 
-
-<section>
-	<div class="product-card">
-		<ProductImages />
-		<div class="product-info">
-			<h1>Vestido Fulanete Amarelo Girassol</h1>
-			<ProductSizes />
-			<div class="product-price-and-reference">
-				<h2>{price}</h2>
-				<h2>Ref.: {ref}</h2>
+{#if !product }
+	<p>Produto não encontrado</p>
+{:else}
+	<section>
+		<div class="product-card">
+			<ProductImages />
+			<div class="product-info">
+				<h1>{product.nome} - {product.estampas[0].nome}</h1>
+				<ProductSizes />
+				<div class="product-price-and-reference">
+					<h2>{toBRL(product.preco)}</h2>
+					<h2>Ref.: {product.ref}</h2>
+				</div>
 			</div>
+			<ChangeQnty />
+			<button>Adicionar ao Carrinho</button>
 		</div>
-		<ChangeQnty />
-		<button>Adicionar ao Carrinho</button>
-	</div>
-</section>
-
+	</section>
+{/if}
 
 <style>
     .product-card {

@@ -1,18 +1,11 @@
 export interface Product {
-	produto: string;
+	nome: string;
 	tecido: string;
 	preco: number;
 	categoria: string;
 	ref: number;
 	estampas: Print[];
-}
-
-export interface Size {
-	pp: boolean;
-	p: boolean;
-	m: boolean;
-	g: boolean;
-	gg: boolean;
+	slug: string;
 }
 
 export interface Print {
@@ -22,4 +15,12 @@ export interface Print {
 	novidade: boolean;
 	highlight: boolean;
 	img: string[];
+}
+
+export interface Size {
+	pp: boolean;
+	p: boolean;
+	m: boolean;
+	g: boolean;
+	gg: boolean;
 }

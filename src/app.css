@@ -9,10 +9,14 @@
     --brand-orange-pastel: #DECDAD;
     --off-white: #FBF9FA;
     --white: #FFFFFF;
+    --header-top-height: 2.7rem;
+    --header-bottom-height: 2.3rem;
 }
 
 main {
-    margin: 0 0.3rem
+    margin: 0 0.3rem;
+    padding-top: calc(var(--header-top-height) + var(--header-bottom-height) + 1rem);
+
 }
 
 .card {

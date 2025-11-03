@@ -1,13 +1,26 @@
-<script>
+<script lang="ts">
+	import { getContext } from 'svelte';
 
-	const sizes = ['PP', 'P', 'M', 'G', 'GG'];
+	const productCtx = $state.raw(getContext('productCtx'));
+
+
+	let selectedSize = $state(0);
+	let idx = $derived(productCtx.actualPrint);
+	let tamanhos = $derived(productCtx.product.estampas[idx].tamanhos);
+
+	function handleSizeClick(index: number, isAvailable: boolean) {
+		if (!isAvailable) return;
+		selectedSize = index;
+	}
 </script>
 
 <div class="product-sizes">
-	{#each sizes as size, i}
-		<div
-			class="product-size-wrapper {i === 4 ? 'disabled' : ''}">
-			<div class="product-size {i === 2 ? 'selected' : ''}">{size}</div>
+	{#each Object.entries(tamanhos) as [key, value], i (i)}
+		<div class="product-size-wrapper">
+			<button
+				class="product-size {i === selectedSize ? 'selected' : ''} {!value ? 'disabled' : ''}"
+				onclick={() => handleSizeClick(i, value)}
+			>{key.toUpperCase()}</button>
 		</div>
 	{/each}
 </div>

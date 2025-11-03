@@ -1,5 +1,9 @@
 <script>
 	import OtherPrints from './other-prints.svelte';
+	import { getContext } from 'svelte';
+
+	const productCtx = $state.raw(getContext('productCtx'));
+	const estampas = $derived(productCtx.product.estampas);
 </script>
 
 <div class="image-wrapper">
@@ -11,21 +15,13 @@
 	</div>
 </div>
 <div>
-	<h3>Outras estampas:</h3>
+	<h3>Todas as estampas:</h3>
 	<div class="other-prints">
-		<OtherPrints img="/imgs/img-exemplo.jpg" link="print-1"
-								 title="Estampa 1" />
-		<OtherPrints img="/imgs/img-exemplo.jpg" link="print-2"
-								 title="Estampa 2" />
-		<OtherPrints img="/imgs/img-exemplo.jpg" link="print-3"
-								 title="Estampa 3" />
-		<OtherPrints img="/imgs/img-exemplo.jpg" link="print-4"
-								 title="Estampa 4" />
-		<OtherPrints img="/imgs/img-exemplo.jpg" link="print-5"
-								 title="Estampa 5" />
+		{#each estampas as estampa, idx (estampa.sku)}
+			<OtherPrints idx={idx} />
+		{/each}
 	</div>
 </div>
-
 
 <style>
     .image-wrapper {
@@ -43,8 +39,8 @@
     }
 
     .other-prints {
-        display: flex;
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
         gap: 0.5rem;
         width: fit-content;
     }

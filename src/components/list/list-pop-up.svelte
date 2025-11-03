@@ -47,6 +47,7 @@
     .card {
         width: 90%;
         height: 95%;
+        z-index: 101;
     }
 
     .list-header {

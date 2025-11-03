@@ -2,10 +2,13 @@
 	const { product, i, estampa } = $props();
 </script>
 
-<a class="product" href="/product/" id="product-{i}">
-	<img alt="Imagem do produto" src="/imgs/img-exemplo.jpg" />
+<a class="product" href="/produtos/{product.slug}" id="product-{i}">
+	<div class="img-wrapper">
+		<img alt="Imagem do produto" src="/imgs/img-exemplo.jpg" />
+		<div class="reference-badge">ref.: {product.ref}</div>
+	</div>
 	<div class="product-info">
-		<h5>{product.produto} - {estampa.nome}</h5>
+		<h5>{product.nome} - {estampa.nome}</h5>
 		<div class="price-and-reference">
 			<h6>
 				{(product.preco).toLocaleString('pt-BR', {
@@ -13,12 +16,15 @@
 					currency: 'BRL'
 				})}
 			</h6>
-			<div class="reference-badge">ref.: {product.ref}</div>
 		</div>
 	</div>
 </a>
 
 <style>
+    a {
+        z-index: 1;
+    }
+
     .product {
         display: flex;
         align-items: center;
@@ -49,6 +55,9 @@
         background-color: var(--brand-pastel-purple);
         padding: 0.2rem 0.5rem;
         font-size: 0.8rem;
+        position: absolute;
+        bottom: 0.2rem;
+        right: 0.2rem;
     }
 
     .price-and-reference {
@@ -62,5 +71,10 @@
             max-width: 300px;
             max-height: 500px;
         }
+    }
+
+    .img-wrapper {
+        position: relative;
+        z-index: 1;
     }
 </style>

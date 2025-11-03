@@ -1,19 +1,34 @@
 <script lang="ts">
 	import ProductButton from './product-button.svelte';
 	import type { Product } from '@interfaces/products';
+	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
-	let products: Product[] = [];
+	let params = $derived($page.params);
+	const categoria = params.categoria;
+	let products: Product[] = $state([]);
 
-	fetch('http://localhost:5173/api/produtos')
-		.then(r => r.json())
-		.then(r => products = r);
+	onMount(() => {
+		let link = '';
+		if (categoria) {
+			link = `/api/produtos/categoria/${categoria}`;
+
+		} else {
+			link = '/api/produtos/produto';
+		}
+
+		console.log(link);
+		fetch(link)
+			.then(r => r.json())
+			.then(r => products = r);
+	});
 
 
 </script>
 
 <section class="products-available">
 	<div class="product-wrapper">
-		{#each products as product}
+		{#each products as product (product.slug)}
 			{#each product.estampas as estampa, i (estampa)}
 				<ProductButton product={product} i={i} estampa={estampa} />
 			{/each}

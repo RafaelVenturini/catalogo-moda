@@ -7,19 +7,6 @@
 	<ListRow />
 	<ListRow />
 	<ListRow />
-	<ListRow />
-	<ListRow />
-	<ListRow />
-	<ListRow />
-	<ListRow />
-	<ListRow />
-	<ListRow />
-	<ListRow />
-	<ListRow />
-	<ListRow />
-	<ListRow />
-	<ListRow />
-	<ListRow />
 </div>
 
 <style>

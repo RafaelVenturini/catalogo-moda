@@ -26,7 +26,8 @@
 				</div>
 			{/each}
 		</div>
-		<div class="money-slot">
+		<div class="bottom-row">
+			<span>ref.:1234</span>
 			<p>R$ {total.toFixed(2)}</p>
 		</div>
 	</div>
@@ -38,6 +39,7 @@
         display: grid;
         grid-template-columns: 1fr 3fr;
         gap: 1rem;
+        border-bottom: 1px solid rgba(204, 204, 204, 0.3);
     }
 
     span {
@@ -59,9 +61,10 @@
         border-radius: 0.5rem;
     }
 
-    .money-slot {
+    .bottom-row {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
+        align-items: center;
 
         p {
             color: var(--brand-orange);

@@ -1,21 +1,21 @@
 <script>
 	let categorys = [
-		{ url: '', name: 'Vestido' },
-		{ url: '', name: 'Blusas' },
-		{ url: '', name: 'Calças' },
-		{ url: '', name: 'Shorts' },
-		{ url: '', name: 'Conjuntos' },
-		{ url: '', name: 'Chemise' }
+		{ url: '/categorias/vestido', name: 'Vestido' },
+		{ url: '/categorias/blusas', name: 'Blusas' },
+		{ url: '/categorias/calcas', name: 'Calças' },
+		{ url: '/categorias/shorts', name: 'Shorts' },
+		{ url: '/categorias/conjuntos', name: 'Conjuntos' },
+		{ url: '/categorias/chemise', name: 'Chemise' }
 	];
 </script>
 
 <section>
 	<div class="category-container">
-		{#each categorys as category, i (category.name)}
-			<div>
-				<img alt="" src="https://placehold.co/60x60">
-				<h3>{category.name}{i}</h3>
-			</div>
+		{#each categorys as category (category.name)}
+			<a class="category" href="{category.url}">
+				<img alt="" src="https://placehold.co/120x120">
+				<h3>{category.name}</h3>
+			</a>
 		{/each}
 	</div>
 </section>
@@ -28,9 +28,22 @@
     }
 
     .category-container {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 1rem;
         margin-bottom: 1rem;
+        justify-items: center;
+    }
+
+    .category {
+        justify-items: center;
+    }
+
+    img {
+        width: 100%;
+        border-radius: 0.5rem;
+        max-width: 120px;
     }
 </style>

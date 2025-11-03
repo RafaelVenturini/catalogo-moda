@@ -5,6 +5,8 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
 	plugins: [tailwindcss(), sveltekit()],
+	server: { host: true, port: 3000 },
+
 	resolve: {
 		alias: {
 			'@components': path.resolve('./src/components'),

@@ -2,7 +2,7 @@
 </script>
 
 <div>
-	<img src="/imgs/banner-legal.png">
+	<img alt="banner muito legal" src="/imgs/banners/banner-legal.png">
 </div>
 
 <style>
