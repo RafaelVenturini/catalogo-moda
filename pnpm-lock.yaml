@@ -11,6 +11,9 @@ importers:
       '@lucide/svelte':
         specifier: ^0.548.0
         version: 0.548.0(svelte@5.42.2)
+      dotenv:
+        specifier: ^17.2.3
+        version: 17.2.3
       mysql2:
         specifier: ^3.15.3
         version: 3.15.3
@@ -759,6 +762,10 @@ packages:
 
   devalue@5.4.2:
     resolution: {integrity: sha512-MwPZTKEPK2k8Qgfmqrd48ZKVvzSQjgW0lXLxiIBA8dQjtf/6mw6pggHNLcyDKyf+fI6eXxlQwPsfaCMTU5U+Bw==}
+
+  dotenv@17.2.3:
+    resolution: {integrity: sha512-JVUnt+DUIzu87TABbhPmNfVdBDt18BLOWjMUFJMSi/Qqg7NTYtabbvSNJGOJ7afbRuv9D/lngizHtP7QyLQ+9w==}
+    engines: {node: '>=12'}
 
   enhanced-resolve@5.18.3:
     resolution: {integrity: sha512-d4lC8xfavMeBjzGr2vECC3fsGXziXZQyJxD868h2M/mBI3PwAuODxAkLkq5HYuvrPYcUtiLzsTo8U3PgX3Ocww==}
@@ -2033,6 +2040,8 @@ snapshots:
   detect-libc@2.1.2: {}
 
   devalue@5.4.2: {}
+
+  dotenv@17.2.3: {}
 
   enhanced-resolve@5.18.3:
     dependencies:
