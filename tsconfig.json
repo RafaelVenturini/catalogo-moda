@@ -12,18 +12,17 @@
     "moduleResolution": "bundler",
     "paths": {
       "@components/*": [
-        "src/components/*"
+        "./src/components/*"
       ],
       "@database/*": [
-        "database/*"
+        "./database/*"
       ],
       "@lib/*": [
-        "src/lib/*"
+        "./src/lib/*"
       ],
       "@interfaces/*": [
-        "src/lib/assets/interfaces/*"
+        "./src/lib/assets/interfaces/*"
       ]
-
     }
   }
 

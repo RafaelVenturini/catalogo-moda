@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:mysql://localhost:3306/liss_moda</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="liss_moda@mixmodas.bacheti.cloud" uuid="043ffcd6-77bd-45fd-9e23-dd52c51a17d3">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://mixmodas.bacheti.cloud:3307/liss_moda</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
