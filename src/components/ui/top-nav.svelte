@@ -35,25 +35,23 @@
 <style>
     nav {
         width: 100%;
-        height: 15rem;
-        margin-bottom: 1rem;
         position: fixed;
         z-index: 1000;
+
+        div {
+            background-color: var(--brand-orange-pastel);
+            display: flex;
+            justify-content: space-between;
+            padding: 0.9rem 0.5rem;
+
+        }
     }
 
     .header-top {
-        background-color: var(--brand-orange-pastel);
-        display: flex;
-        justify-content: space-between;
-        padding: 0.3rem 0.5rem;
         height: var(--header-top-height);
     }
 
     .header-bottom {
-        background-color: var(--brand-orange-pastel);
-        display: flex;
-        justify-content: space-between;
-        padding: 0.3rem 0.5rem;
-        height: var(--header-bottom-height);
+        height: var(--header-top-bottom);
     }
 </style>

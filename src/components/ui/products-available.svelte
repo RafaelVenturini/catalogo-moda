@@ -5,7 +5,7 @@
 	import { page } from '$app/stores';
 
 	let params = $derived($page.params);
-	const categoria = params.categoria;
+	const categoria = $derived(params.categoria);
 	let products: Product[] = $state([]);
 
 	onMount(() => {
