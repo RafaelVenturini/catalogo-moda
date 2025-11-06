@@ -7,9 +7,11 @@
 	import { toBRL } from '@lib/assets/utils/money/toBRL';
 	import ProductSizes
 		from '@components/product-page/product-section/variations/product-sizes.svelte';
+	import { FF_list, FF_price } from '@utils/flags/front-features';
 
 	const productCtx = $state.raw(getContext('productCtx'));
 	const product = $derived(productCtx.product);
+	const idx = $derived(productCtx.actualPrint);
 </script>
 
 {#if !product }
@@ -20,14 +22,23 @@
 			<ProductImages />
 			<div class="product-info">
 				<h1>{product.nome} - {product.estampas[0].nome}</h1>
-				<ProductSizes />
+				{#if FF_list}
+					<ProductSizes />
+				{/if}
 				<div class="product-price-and-reference">
-					<h2>{toBRL(product.preco)}</h2>
+					{#if FF_price}
+						<h2>{toBRL(product.preco)}</h2>
+					{/if}
 					<h2>Ref.: {product.ref}</h2>
 				</div>
 			</div>
-			<ChangeQnty />
-			<button>Adicionar ao Carrinho</button>
+			{#if FF_list}
+				<ChangeQnty />
+				<button
+				>
+					Adicionar ao Carrinho
+				</button>
+			{/if}
 		</div>
 	</section>
 {/if}

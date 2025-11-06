@@ -1,15 +1,15 @@
 <script>
 	import CommonWithoutLetters
 		from './svg/logo/common-without-letters.svelte';
-	import ShoppingList from './shopping-list.svelte';
+	import { FF_list } from '@utils/flags/front-features.js';
+	import ShoppingList from '@components/ui/shopping-list.svelte';
 
 	const categorys = [
-		{ url: '/categorias/vestido', name: 'Vestido' },
+		{ url: '/categorias/vestido', name: 'Vestidos' },
 		{ url: '/categorias/blusas', name: 'Blusas' },
 		{ url: '/categorias/calcas', name: 'Calças' },
 		{ url: '/categorias/shorts', name: 'Shorts' },
-		{ url: '/categorias/conjuntos', name: 'Conjuntos' },
-		{ url: '/categorias/chemise', name: 'Chemise' }
+		{ url: '/categorias/conjuntos', name: 'Conjuntos' }
 	];
 </script>
 
@@ -19,7 +19,9 @@
 			<CommonWithoutLetters height="30" width="30" />
 		</a>
 		<div class="header-icons">
-			<ShoppingList />
+			{#if FF_list}
+				<ShoppingList />
+			{/if}
 		</div>
 	</div>
 	<div class="header-bottom">
@@ -36,6 +38,7 @@
         height: 15rem;
         margin-bottom: 1rem;
         position: fixed;
+        z-index: 1000;
     }
 
     .header-top {

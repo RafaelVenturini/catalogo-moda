@@ -10,6 +10,9 @@ export const pool = createPool({
 	database: process.env.DB_NAME,
 	port: 3307,
 	waitForConnections: true,
-	connectionLimit: 10,
-	queueLimit: 0
+	connectionLimit: 12,
+	queueLimit: 25,
+	idleTimeout: 300000,
+	maxIdle: 3,
+	enableKeepAlive: true
 });

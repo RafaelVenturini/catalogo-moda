@@ -1,27 +1,44 @@
 <script>
+	import { goto } from '$app/navigation';
+	import { FF_price } from '@utils/flags/front-features.js';
+
 	const { product, i, estampa } = $props();
+
+	function changePrint(slug) {
+		goto(`/produtos/${slug}`, {
+			noScroll: true,
+			replaceState: true,
+			keepFocus: true
+		});
+	}
 </script>
 
-<a class="product" href="/produtos/{product.slug}" id="product-{i}">
+<button
+	class="product"
+	id="product-{i}"
+	onclick={() => changePrint(product.slug)}
+>
 	<div class="img-wrapper">
 		<img alt="Imagem do produto" src="/imgs/img-exemplo.jpg" />
 		<div class="reference-badge">ref.: {product.ref}</div>
 	</div>
 	<div class="product-info">
 		<h5>{product.nome} - {estampa.nome}</h5>
-		<div class="price-and-reference">
-			<h6>
-				{(product.preco).toLocaleString('pt-BR', {
-					style: 'currency',
-					currency: 'BRL'
-				})}
-			</h6>
+		<div class="price">
+			{#if FF_price}
+				<h6>
+					{(product.preco).toLocaleString('pt-BR', {
+						style: 'currency',
+						currency: 'BRL'
+					})}
+				</h6>
+			{/if}
 		</div>
 	</div>
-</a>
+</button>
 
 <style>
-    a {
+    button {
         z-index: 1;
     }
 
@@ -60,7 +77,7 @@
         right: 0.2rem;
     }
 
-    .price-and-reference {
+    .price {
         display: flex;
         justify-content: space-between;
         align-items: center;

@@ -1,9 +1,8 @@
 import type { RequestHandler } from '@sveltejs/kit';
-import { sql } from '@lib/assets/utils/products/sql-get-products';
-import { pool } from '@database/database';
-import {
-	arrangeCatalog
-} from '@lib/assets/utils/products/arrange-catalog';
+import { sql } from '@utils/products/sql-get-products';
+import { pool } from '@lib/database/database';
+import { arrangeCatalog } from '@utils/products/arrange-catalog';
+import type { SelectResponse } from '@interfaces/sql';
 
 export const GET: RequestHandler = async ({ params }) => {
 	let sqlBase = sql;
@@ -21,9 +20,8 @@ export const GET: RequestHandler = async ({ params }) => {
 			}
 		}
 
-		const [catalog] = await pool.execute(sqlBase, sqlParam);
+		const [catalog] = await pool.execute<SelectResponse[]>(sqlBase, sqlParam);
 
-		// @ts-expect-error catalog == SelectResponse
 		const productsArranged = arrangeCatalog(catalog);
 
 		return new Response(JSON.stringify(productsArranged), {

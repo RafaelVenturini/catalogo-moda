@@ -11,12 +11,18 @@
     --white: #FFFFFF;
     --header-top-height: 2.7rem;
     --header-bottom-height: 2.3rem;
+    --header-height: calc(var(--header-top-height) + var(--header-bottom-height));
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 main {
     margin: 0 0.3rem;
-    padding-top: calc(var(--header-top-height) + var(--header-bottom-height) + 1rem);
-
+    padding-top: calc(var(--header-height) + 1rem);
 }
 
 .card {

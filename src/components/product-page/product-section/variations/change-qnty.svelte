@@ -1,7 +1,10 @@
 <script>
 	import { Minus, Plus } from '@lucide/svelte';
+	import { getContext } from 'svelte';
 
-	let qnty = 1;
+	const sizes = $derived(getContext('sizes'));
+
+	let qnty = $state(1);
 
 	function decrease() {
 		if (qnty > 1) qnty--;

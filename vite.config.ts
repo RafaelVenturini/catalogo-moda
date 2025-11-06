@@ -1,4 +1,3 @@
-import path from 'path';
 import tailwindcss from '@tailwindcss/vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
@@ -8,11 +7,6 @@ export default defineConfig({
 	server: { host: true, port: 3000 },
 
 	resolve: {
-		alias: {
-			'@components': path.resolve('./src/components'),
-			'@database': path.resolve('./database/'),
-			'@lib': path.resolve('./src/lib'),
-			'@interfaces': path.resolve('./src/lib/assets/interfaces/')
-		}
+		alias: {}
 	}
 });

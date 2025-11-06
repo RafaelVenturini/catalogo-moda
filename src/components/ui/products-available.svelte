@@ -17,7 +17,6 @@
 			link = '/api/produtos/produto';
 		}
 
-		console.log(link);
 		fetch(link)
 			.then(r => r.json())
 			.then(r => products = r);

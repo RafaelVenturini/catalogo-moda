@@ -10,6 +10,7 @@ export interface Product {
 
 export interface Print {
 	sku: string;
+	tiny_id: number;
 	nome: string;
 	tamanhos: Size;
 	novidade: boolean;

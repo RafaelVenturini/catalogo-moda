@@ -9,21 +9,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "moduleResolution": "bundler",
-    "paths": {
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@database/*": [
-        "./database/*"
-      ],
-      "@lib/*": [
-        "./src/lib/*"
-      ],
-      "@interfaces/*": [
-        "./src/lib/assets/interfaces/*"
-      ]
-    }
+    "moduleResolution": "bundler"
   }
 
 
