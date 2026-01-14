@@ -14,6 +14,7 @@
 	}
 </script>
 
+<h3>Tamanhos disponíveis:</h3>
 <div class="product-sizes">
 	{#each Object.entries(tamanhos) as [key, value], i (i)}
 		<div class="product-size-wrapper">

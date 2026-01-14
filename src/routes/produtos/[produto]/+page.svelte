@@ -9,6 +9,7 @@
 	let productCtx = $state({
 		product: null,
 		actualPrint: 0,
+		actualPic: 0,
 		sizes: { pp: 0, p: 0, m: 0, g: 0, gg: 0 }
 	});
 
@@ -21,17 +22,18 @@
 		fetch(`/api/produtos/produto/${searchProduct}`)
 			.then(res => res.json())
 			.then(data => {
-				productCtx.product = data[0];
+				productCtx.product = data;
 				productCtx.actualPrint = searchPrint ? Number(searchPrint) : 0;
-				console.log('Context product: ', data);
-			});
+				productCtx.actualPic = 0;
+			})
+			.catch(err => console.error(err));
 	});
 </script>
 
 <header>
 	<TopNav />
 </header>
-<main>
+<main class="margin-header">
 	<ProductPage />
 	<div class="card">
 		<h4>Veja outros produtos também!</h4>

@@ -1,4 +1,4 @@
-export function toBRL(value: number) {
+export function toBRL(value: number | string) {
 	if (!value) return value;
-	return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+	return Number(value).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }

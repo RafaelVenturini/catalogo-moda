@@ -1,36 +1,50 @@
+import { pool } from '@db/database';
 import type { RequestHandler } from '@sveltejs/kit';
-import { sql } from '@utils/products/sql-get-products';
-import { pool } from '@lib/database/database';
+import { allItensSql, especificItemSql } from '@utils/products/sql-get-products';
 import { arrangeCatalog } from '@utils/products/arrange-catalog';
-import type { SelectResponse } from '@interfaces/sql';
+import { arrangeUniqueProduct } from '@utils/products/arrange-unique-product';
+import type { SelectAllItems, SelectOneItem } from '@interfaces/sql';
 
 export const GET: RequestHandler = async ({ params }) => {
-	let sqlBase = sql;
+	let sql = allItensSql;
 	const sqlParam = [];
+	const tipo = params.tipo;
+	const subt = params.subtipo;
+	let resp;
+	let data: SelectAllItems[] | SelectOneItem[];
+
+	console.log(tipo, subt);
+
 	try {
-		const tipo = params.tipo;
-		const subt = params.subtipo;
+		switch (tipo) {
+			case 'categoria':
+				sql += ` AND cat.nome LIKE '${subt}%'`;
+				[data] = await pool.query<SelectAllItems[]>(sql);
+				resp = arrangeCatalog(data);
+				return new Response(JSON.stringify(resp), { status: 200 });
 
-		if (subt) {
-			if (tipo === 'categoria') {
-				sqlBase += ` WHERE cat.nome LIKE '${subt}%'`;
-			} else {
-				sqlBase += ` WHERE c.slug = ?`;
-				sqlParam.push(subt);
+			case 'tag': {
+				[data] = await pool.query<SelectAllItems[]>(sql);
+				resp = arrangeCatalog(data);
+				const onlyTagged = resp.filter((x) => x.tags.includes(subt || ''));
+				return new Response(JSON.stringify(onlyTagged), { status: 200 });
 			}
+
+			case 'produto':
+				sql = especificItemSql;
+				sqlParam.push(subt);
+				[data] = await pool.query<SelectOneItem[]>(sql, sqlParam);
+				console.log('API content: ', data);
+				resp = arrangeUniqueProduct(data);
+				return new Response(JSON.stringify(resp), { status: 200 });
+
+			default:
+				[data] = await pool.query<SelectAllItems[]>(sql);
+				resp = arrangeCatalog(data);
+				return new Response(JSON.stringify(resp), { status: 200 });
 		}
-
-		const [catalog] = await pool.execute<SelectResponse[]>(sqlBase, sqlParam);
-
-		const productsArranged = arrangeCatalog(catalog);
-
-		return new Response(JSON.stringify(productsArranged), {
-			headers: { 'Content-Type': 'application/json' }
-		});
 	} catch (e) {
 		console.error(e);
-		return new Response(JSON.stringify(e), {
-			headers: { 'Content-Type': 'application/json' }
-		});
+		return new Response(JSON.stringify(e), { status: 500 });
 	}
 };

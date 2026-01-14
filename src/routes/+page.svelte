@@ -10,9 +10,16 @@
 <header>
 	<TopNav />
 </header>
+<MainBanner />
 <main>
-	<MainBanner />
 	<Categorys />
+	<h2 class="h5">Produtos em destaque</h2>
 	<ProductsAvailable />
 </main>
 <Footer />
+
+<style>
+    header {
+        height: var(--header-height);
+    }
+</style>

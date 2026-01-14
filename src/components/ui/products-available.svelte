@@ -6,31 +6,27 @@
 
 	let params = $derived($page.params);
 	const categoria = $derived(params.categoria);
+	const tag = $derived(params.tag);
 	let products: Product[] = $state([]);
 
 	onMount(() => {
-		let link = '';
+		let link = '/api/produtos/';
 		if (categoria) {
-			link = `/api/produtos/categoria/${categoria}`;
-
+			link += `categorias/${categoria}`;
 		} else {
-			link = '/api/produtos/produto';
+			link += 'todos';
 		}
 
 		fetch(link)
 			.then(r => r.json())
 			.then(r => products = r);
 	});
-
-
 </script>
 
 <section class="products-available">
 	<div class="product-wrapper">
-		{#each products as product (product.slug)}
-			{#each product.estampas as estampa, i (estampa)}
-				<ProductButton product={product} i={i} estampa={estampa} />
-			{/each}
+		{#each products as product, idx (product.slug + idx)}
+			<ProductButton product={product} />
 		{/each}
 	</div>
 </section>
@@ -38,10 +34,8 @@
 <style>
     .product-wrapper {
         display: flex;
-        gap: 0.5rem;
-        align-items: center;
-        align-content: center;
-        justify-content: center;
+        gap: 1rem 0;
+        justify-content: space-between;
         flex-wrap: wrap;
         margin-top: 1rem;
     }

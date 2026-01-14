@@ -1,33 +1,48 @@
-<script>
+<script lang="ts">
 	import { goto } from '$app/navigation';
 	import { FF_price } from '@utils/flags/front-features.js';
+	import { resolve } from '$app/paths';
+	import SmallNotif from '@components/ui/badges/small-notif.svelte';
 
-	const { product, i, estampa } = $props();
+	const { product } = $props();
 
-	function changePrint(slug) {
-		goto(`/produtos/${slug}`, {
-			noScroll: true,
-			replaceState: true,
-			keepFocus: true
-		});
+	function changePrint(slug: string) {
+		const link = resolve(`/produtos/${slug}`);
+		goto(link);
 	}
+
+	const notOld = product.extra.novidade;
+	const renew = product.extra.reposicao;
+
 </script>
 
 <button
 	class="product"
-	id="product-{i}"
 	onclick={() => changePrint(product.slug)}
 >
 	<div class="img-wrapper">
-		<img alt="Imagem do produto" src="/imgs/img-exemplo.jpg" />
-		<div class="reference-badge">ref.: {product.ref}</div>
+		{#if notOld || renew}
+			<SmallNotif
+				notOld={notOld}
+				renew={renew}
+				className="product-notif"
+			/>
+		{/if}
+		<img alt="Imagem do produto"
+				 height=1600
+				 loading="lazy"
+				 src={product.img}
+				 width=1600
+		/>
 	</div>
 	<div class="product-info">
-		<h5>{product.nome} - {estampa.nome}</h5>
-		<div class="price">
+		<h4 class="h6">{product.produto}</h4>
+		<h5 class="small-text">{product.estampa}</h5>
+		<span class="small-text">REF. {product.ref}</span>
+		<div class="price small-text">
 			{#if FF_price}
 				<h6>
-					{(product.preco).toLocaleString('pt-BR', {
+					{Number(product.preco).toLocaleString('pt-BR', {
 						style: 'currency',
 						currency: 'BRL'
 					})}
@@ -47,12 +62,8 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        background-color: var(--off-white);
-        border-radius: 0.4rem;
         overflow: hidden;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-        max-width: 150px;
-        max-height: 300px;
+        max-width: 43vw;
     }
 
     .product-info {
@@ -60,21 +71,21 @@
         padding: 0.1rem 0.2rem;
     }
 
-    h6 {
-        font-size: 1.2rem;
-        color: var(--brand-orange);
-        font-weight: bold;
+    h5 {
+        opacity: 0.7;
     }
 
-    .reference-badge {
-        width: fit-content;
-        border-radius: 1rem;
-        background-color: var(--brand-pastel-purple);
-        padding: 0.2rem 0.5rem;
-        font-size: 0.8rem;
-        position: absolute;
-        bottom: 0.2rem;
-        right: 0.2rem;
+    span {
+        opacity: 0.4;
+    }
+
+    h4, h5, h6 {
+        text-align: left;
+    }
+
+    span {
+        display: flex;
+        justify-content: left;
     }
 
     .price {
@@ -86,12 +97,18 @@
     @media (min-width: 800px) {
         .product {
             max-width: 300px;
-            max-height: 500px;
         }
     }
 
     .img-wrapper {
         position: relative;
         z-index: 1;
+
+        img {
+            border-radius: 1rem;
+            object-fit: cover;
+            aspect-ratio: 3/4;
+
+        }
     }
 </style>

@@ -8,11 +8,12 @@
 </script>
 
 <div class="item-row">
-	<img alt="Imagem de exemplo" src="/imgs/img-exemplo.jpg" />
+	<img alt="Imagem de exemplo"
+			 src="/imgs/place-holder/place-holder-1.webp" />
 	<div class="item-info">
 		<h2>Vestido Fulanete <span>Amarelo Girassol</span></h2>
 		<div class="sizes">
-			{#each sizes as size, index}
+			{#each sizes as size, index (index)}
 				<div class="size-slot">
 					{size.toUpperCase()}
 					<select

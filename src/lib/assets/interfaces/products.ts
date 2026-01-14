@@ -14,8 +14,13 @@ export interface Print {
 	nome: string;
 	tamanhos: Size;
 	novidade: boolean;
+	reposicao: boolean;
 	highlight: boolean;
 	img: string[];
+	tecido: string;
+	composicao: string;
+	cuidados: string;
+	tags: TagsUnique;
 }
 
 export interface Size {
@@ -24,4 +29,29 @@ export interface Size {
 	m: boolean;
 	g: boolean;
 	gg: boolean;
+}
+
+export interface ProductList {
+	sku: string;
+	slug: string;
+	extra: Extra;
+	produto: string;
+	estampa: string;
+	preco: number;
+	ref: number;
+	img: string;
+	tags: string;
+}
+
+export interface Extra {
+	highlight: boolean;
+	reposicao: boolean;
+	novidade: boolean;
+}
+
+export interface TagsUnique {
+	modelo: string[];
+	final: string[];
+	estampa: string[];
+	tecido: string[];
 }

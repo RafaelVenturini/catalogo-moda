@@ -1,35 +1,50 @@
 <script>
-	import OtherPrints from './other-prints.svelte';
 	import { getContext } from 'svelte';
 
+
 	const productCtx = $state.raw(getContext('productCtx'));
-	const estampas = $derived(productCtx.product.estampas);
+	const { product, actualPrint } = $derived(productCtx);
+
+	const actualItem = $derived(product?.estampas?.[actualPrint]);
+
 </script>
 
 <div class="image-wrapper">
-	<img alt="" class="main-image" src="/imgs/img-exemplo.jpg" />
+	<img alt="Imagem principal"
+			 class="main-image"
+			 src={actualItem.img[productCtx.actualPic]}
+	/>
 	<div class="other-images">
-		<img alt="" src="/imgs/img-exemplo.jpg" />
-		<img alt="" src="/imgs/img-exemplo.jpg" />
-		<img alt="" src="/imgs/img-exemplo.jpg" />
-	</div>
-</div>
-<div>
-	<h3>Todas as estampas:</h3>
-	<div class="other-prints">
-		{#each estampas as estampa, idx (estampa.sku)}
-			<OtherPrints idx={idx} />
+		{#each actualItem.img as img, idx (idx)}
+			<button
+				onclick={() => productCtx.actualPic = idx}
+			>
+				<img
+					alt="Imagem extra"
+					class={ idx === productCtx.actualPic ? 'active' : ''}
+					src={img}
+				/>
+			</button>
 		{/each}
 	</div>
 </div>
 
 <style>
+    :root {
+        --main-image-width: 50vw;
+    }
+
+    img {
+        border-radius: 1rem;
+    }
+
     .image-wrapper {
         display: flex;
         flex-direction: column;
         gap: 1rem;
         height: fit-content;
         width: 100%;
+        align-items: center;
     }
 
     .other-images {
@@ -38,10 +53,7 @@
         gap: 0.5rem;
     }
 
-    .other-prints {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.5rem;
-        width: fit-content;
+    .active {
+        border: 5px solid var(--brand-black);
     }
 </style>

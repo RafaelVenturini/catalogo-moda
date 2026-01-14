@@ -9,9 +9,11 @@
     --brand-orange-pastel: #DECDAD;
     --off-white: #FBF9FA;
     --white: #FFFFFF;
-    --header-top-height: 2.7rem;
-    --header-bottom-height: 2.3rem;
-    --header-height: calc(var(--header-top-height) + var(--header-bottom-height));
+    --main-color: #F1E6CF;
+    --main-orange: #CB621E;
+    --footer-color: #F6EEF3;
+
+    --header-height: 5rem;
 }
 
 html, body {
@@ -21,8 +23,7 @@ html, body {
 }
 
 main {
-    margin: 0 0.3rem;
-    padding-top: calc(var(--header-height) + 1rem);
+    margin: 0 1rem;
 }
 
 .card {
@@ -33,3 +34,74 @@ main {
     background-color: var(--white);
     overflow: scroll;
 }
+
+.display-1 {
+    font-size: 64px;
+    line-height: 105%;
+}
+
+.display-2 {
+    font-size: 56px;
+    line-height: 105%;
+}
+
+.display-3 {
+    font-size: 48px;
+    line-height: 105%;
+}
+
+.h1 {
+    font-size: 40px;
+    line-height: 110%;
+}
+
+.h2 {
+    font-size: 32px;
+    line-height: 115%;
+}
+
+.h3 {
+    font-size: 28px;
+    line-height: 120%;
+}
+
+.h4 {
+    font-size: 24px;
+    line-height: 125%;
+}
+
+.h5 {
+    font-size: 20px;
+    line-height: 130%;
+}
+
+.h6 {
+    font-size: 16px;
+    line-height: 135%;
+}
+
+.h7 {
+    font-size: 14px;
+    line-height: 140%;
+}
+
+.text-lead {
+    font-size: 20px;
+    line-height: 150%;
+}
+
+.base-text {
+    font-size: 16px;
+    line-height: 150%;
+}
+
+.small-text {
+    font-size: 14px;
+    line-height: 150%;
+}
+
+.smallest-text {
+    font-size: 12px;
+    line-height: 150%;
+}
+

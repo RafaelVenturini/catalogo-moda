@@ -1,17 +1,21 @@
-<script lang="ts">
+<script>
 	import ProductImages
 		from '@components/product-page/product-section/images/product-images.svelte';
 	import ChangeQnty
 		from '@components/product-page/product-section/variations/change-qnty.svelte';
 	import { getContext } from 'svelte';
-	import { toBRL } from '@lib/assets/utils/money/toBRL';
+	import { FF_list } from '@utils/flags/front-features';
+	import ProductInfo
+		from './product-section/variations/product-info.svelte';
+	import OtherPrints from './product-section/images/other-prints.svelte';
+	import ProductSpecs from './product-section/data/product-specs.svelte';
+	import Divider from '@components/ui/divider.svelte';
 	import ProductSizes
-		from '@components/product-page/product-section/variations/product-sizes.svelte';
-	import { FF_list, FF_price } from '@utils/flags/front-features';
+		from './product-section/variations/product-sizes.svelte';
+	import ProductTags from './product-section/data/product-tags.svelte';
 
 	const productCtx = $state.raw(getContext('productCtx'));
 	const product = $derived(productCtx.product);
-	const idx = $derived(productCtx.actualPrint);
 </script>
 
 {#if !product }
@@ -20,25 +24,25 @@
 	<section>
 		<div class="product-card">
 			<ProductImages />
-			<div class="product-info">
-				<h1>{product.nome} - {product.estampas[0].nome}</h1>
-				{#if FF_list}
+			<div class="product-data">
+				<ProductInfo />
+				<Divider />
+				<div class="print-sizes">
+					<OtherPrints />
 					<ProductSizes />
-				{/if}
-				<div class="product-price-and-reference">
-					{#if FF_price}
-						<h2>{toBRL(product.preco)}</h2>
-					{/if}
-					<h2>Ref.: {product.ref}</h2>
 				</div>
+				<Divider />
+				{#if FF_list}
+					<ChangeQnty />
+					<button
+					>
+						Adicionar ao Carrinho
+					</button>
+					<Divider />
+				{/if}
+				<ProductSpecs />
+				<ProductTags />
 			</div>
-			{#if FF_list}
-				<ChangeQnty />
-				<button
-				>
-					Adicionar ao Carrinho
-				</button>
-			{/if}
 		</div>
 	</section>
 {/if}
@@ -54,18 +58,30 @@
         align-items: center;
     }
 
-    .product-info {
+    .product-data {
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
     }
 
-    .product-price-and-reference {
+    .print-sizes {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
+        gap: 1rem;
     }
 
     button {
         background-color: var(--brand-orange);
         width: 70%;
         border-radius: 1rem;
+    }
+
+    @media (min-width: 768px) {
+        .product-card {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+        }
     }
 </style>

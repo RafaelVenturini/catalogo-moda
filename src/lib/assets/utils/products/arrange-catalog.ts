@@ -1,39 +1,23 @@
-import type { Print, Product } from '@interfaces/products';
-import type { SelectResponse } from '@interfaces/sql';
+import type { ProductList } from '@interfaces/products';
+import type { SelectAllItems } from '@interfaces/sql';
+import { fixImage } from '@utils/image/fixImage';
 
-export function arrangeCatalog(catalog: SelectResponse[]) {
-	const productsArranged: Product[] = [];
-
-	for (const item of catalog) {
-		const print: Print = {
-			sku: item.sku,
-			nome: item.estampa,
-			tamanhos: {
-				pp: item.pp,
-				p: item.p,
-				m: item.m,
-				g: item.g,
-				gg: item.gg
+export function arrangeCatalog(catalog: SelectAllItems[]): ProductList[] {
+	return catalog.map((x) => {
+		return {
+			sku: x.sku,
+			slug: x.slug,
+			extra: {
+				highlight: x.highlight,
+				reposicao: x.reposicao,
+				novidade: x.novidade
 			},
-			novidade: item.novidade,
-			highlight: item.highlight,
-			img: []
+			produto: x.produto,
+			estampa: x.estampa,
+			preco: x.preco,
+			ref: x.ref,
+			img: fixImage(x.img)[0],
+			tags: `${x.tg_pro} | ${x.tg_cat} | ${x.tg_est} | ${x.tg_tec}`
 		};
-		const idx = productsArranged.findIndex((x) => x.slug === item.slug);
-		if (idx > -1) {
-			productsArranged[idx].estampas.push(print);
-		} else {
-			const newProduct = {
-				slug: item.slug,
-				nome: item.produto,
-				tecido: item.tecido,
-				preco: Number(item.preco),
-				categoria: item.categoria,
-				ref: item.ref,
-				estampas: [print]
-			};
-			productsArranged.push(newProduct);
-		}
-	}
-	return productsArranged;
+	});
 }
