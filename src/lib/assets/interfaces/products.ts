@@ -17,6 +17,7 @@ export interface Print {
 	reposicao: boolean;
 	highlight: boolean;
 	img: string[];
+	referencia: string;
 	tecido: string;
 	composicao: string;
 	cuidados: string;

@@ -31,6 +31,7 @@ export function arrangeUniqueProduct(product: SelectOneItem[]): Product {
 			tecido: x.tecido,
 			composicao: x.composicao,
 			cuidados: x.cuidados,
+			referencia: x.referencia,
 			tags
 		};
 	});

@@ -14,16 +14,18 @@
 	}
 </script>
 
-<h3>Tamanhos disponíveis:</h3>
-<div class="product-sizes">
-	{#each Object.entries(tamanhos) as [key, value], i (i)}
-		<div class="product-size-wrapper">
-			<button
-				class="product-size {i === selectedSize ? 'selected' : ''} {!value ? 'disabled' : ''}"
-				onclick={() => handleSizeClick(i, value)}
-			>{key.toUpperCase()}</button>
-		</div>
-	{/each}
+<div class="size-wrapper">
+	<h3 class="h6">Tamanhos:</h3>
+	<div class="product-sizes">
+		{#each Object.entries(tamanhos) as [key, value], i (i)}
+			<div class="product-size-wrapper">
+				<button
+					class="product-size {i === selectedSize ? 'selected' : ''} {!value ? 'disabled' : ''}"
+					onclick={() => handleSizeClick(i, value)}
+				><span class="h7">{key.toUpperCase()}</span></button>
+			</div>
+		{/each}
+	</div>
 </div>
 
 <style>
@@ -32,13 +34,22 @@
         grid-template-columns: repeat(5, 1fr);
         gap: 0.5rem;
         justify-items: center;
+        width: 100%;
     }
 
     .product-size {
-        border-radius: 5rem;
-        background-color: var(--brand-orange-pastel);
+        border-radius: 1rem;
+        background-color: #2C1C2410;
         text-align: center;
-        width: 2rem;
+        width: 3rem;
+    }
+
+    .size-wrapper {
+        display: flex;
+    }
+
+    .h7 {
+        opacity: 70%;
     }
 
     .disabled {
@@ -46,6 +57,6 @@
     }
 
     .selected {
-        background-color: var(--brand-orange);
+        background-color: #2C1C2440;
     }
 </style>

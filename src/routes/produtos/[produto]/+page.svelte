@@ -35,15 +35,23 @@
 </header>
 <main class="margin-header">
 	<ProductPage />
-	<div class="card">
-		<h4>Veja outros produtos também!</h4>
+	<div class="side-margin">
+		<h4>Veja também</h4>
 		<ProductsAvailable />
 	</div>
 </main>
 <Footer />
 
 <style>
-    .card {
-        margin: 2rem 0;
+    .side-margin {
+        margin-top: 2rem;
+    }
+
+    header {
+        height: var(--header-height);
+    }
+
+    main {
+        margin: 0;
     }
 </style>

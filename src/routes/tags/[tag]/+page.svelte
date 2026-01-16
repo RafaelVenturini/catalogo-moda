@@ -8,7 +8,13 @@
 <header>
 	<TopNav />
 </header>
-<main class="margin-header">
+<main>
 	<ProductsAvailable />
 </main>
 <Footer />
+
+<style>
+    header {
+        height: var(--header-height);
+    }
+</style>

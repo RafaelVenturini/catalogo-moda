@@ -21,54 +21,32 @@
 {#if !product }
 	<p>Produto não encontrado</p>
 {:else}
-	<section>
-		<div class="product-card">
-			<ProductImages />
-			<div class="product-data">
-				<ProductInfo />
+	<section class="product-wrapper">
+		<ProductImages />
+		<div class="product-data side-margin">
+			<ProductInfo />
+			<ProductSizes />
+			<OtherPrints />
+			<Divider />
+			<ProductSpecs />
+			<Divider />
+			{#if FF_list}
+				<ChangeQnty />
+				<button
+				>
+					Adicionar ao Carrinho
+				</button>
 				<Divider />
-				<div class="print-sizes">
-					<OtherPrints />
-					<ProductSizes />
-				</div>
-				<Divider />
-				{#if FF_list}
-					<ChangeQnty />
-					<button
-					>
-						Adicionar ao Carrinho
-					</button>
-					<Divider />
-				{/if}
-				<ProductSpecs />
-				<ProductTags />
-			</div>
+			{/if}
+			<ProductTags />
 		</div>
 	</section>
 {/if}
 
 <style>
-    .product-card {
-        display: flex;
-        flex-direction: column;
-        padding: 0.5rem;
-        border-radius: 1rem;
-        box-shadow: 0 0 1rem 0.5rem rgba(0, 0, 0, 0.1);
-        gap: 1rem;
-        align-items: center;
-    }
-
     .product-data {
-        width: 100%;
         display: flex;
         flex-direction: column;
-        overflow: hidden;
-    }
-
-    .print-sizes {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
     }
 
     button {
@@ -77,11 +55,15 @@
         border-radius: 1rem;
     }
 
-    @media (min-width: 768px) {
-        .product-card {
+    @media (min-width: 800px) {
+        .product-wrapper {
             display: flex;
             flex-direction: row;
-            align-items: flex-start;
+            max-height: 90vh;
+        }
+
+        .product-data {
+            max-width: 60vw;
         }
     }
 </style>

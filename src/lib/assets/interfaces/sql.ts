@@ -1,8 +1,9 @@
 import type { RowDataPacket } from 'mysql2';
 
 export interface SelectOneItem extends RowDataPacket {
-	highlight: boolean;
 	composicao: string;
+	referencia: string;
+	highlight: boolean;
 	reposicao: boolean;
 	categoria: string;
 	novidade: boolean;

@@ -14,23 +14,45 @@
 </script>
 
 <section class="product-specs">
-	<h3>Detalhes técnicos:</h3>
+	<div>
+		<h3 class="h3">Sobre o produto</h3>
+		<span class="h7">REF.
+			{product.ref}</span>
+	</div>
 	<ul>
 		{#each specs as spec, idx (idx)}
 			{#if spec.value}
-				<ol><span>{spec.label}</span>: {spec.value}</ol>
+				<ol class="base-text"><span class="spec-title">{spec.label}</span>:
+					{spec.value}</ol>
 			{/if}
 		{/each}
 	</ul>
 </section>
 
 <style>
+    .product-specs {
+        div {
+            display: flex;
+            gap: 1rem;
+
+            .h7 {
+                opacity: 70%;
+                background-color: #2C1C2410;
+                padding: 0.5rem;
+                border-radius: 0.5rem;
+            }
+        }
+    }
+
+
     ul {
         gap: 0.5rem;
         display: grid;
 
         ol {
-            span {
+            opacity: 70%;
+
+            .spec-title {
                 font-weight: bold;
             }
         }

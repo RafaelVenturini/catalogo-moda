@@ -22,17 +22,8 @@ html, body {
     padding: 0;
 }
 
-main {
-    margin: 0 1rem;
-}
-
-.card {
-    padding: 0.5rem;
-    border-radius: 1rem;
-    box-shadow: 0 0 1rem 0.5rem rgba(0, 0, 0, 0.1);
-    gap: 1rem;
-    background-color: var(--white);
-    overflow: scroll;
+.side-margin {
+    margin: 0 20px;
 }
 
 .display-1 {

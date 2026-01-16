@@ -11,7 +11,7 @@
 	<TopNav />
 </header>
 <MainBanner />
-<main>
+<main class="side-margin">
 	<Categorys />
 	<h2 class="h5">Produtos em destaque</h2>
 	<ProductsAvailable />

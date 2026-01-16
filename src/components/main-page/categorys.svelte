@@ -32,13 +32,6 @@
 </section>
 
 <style>
-    section {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
     p {
         color: var(--main-orange);
     }
@@ -48,13 +41,13 @@
     }
 
     .category-container {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+
         gap: 1rem;
         margin-bottom: 1rem;
         justify-items: center;
+        width: 100%;
     }
 
     .category-text {
@@ -62,8 +55,18 @@
     }
 
     img {
-        width: 100%;
+        width: 6.7rem;
         border-radius: 0.5rem;
         max-width: 120px;
+    }
+
+    @media (min-width: 800px) {
+        .category-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 4rem;
+        }
     }
 </style>

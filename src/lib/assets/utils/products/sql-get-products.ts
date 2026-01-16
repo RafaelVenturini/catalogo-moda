@@ -16,7 +16,8 @@ export const especificItemSql = `
 		e.obs,
 		pr.preco,
 		ref,
-		img
+		img,
+		e.referencia
 	FROM catalogo c
 				 LEFT JOIN produto pr on c.sku = pr.sku
 				 LEFT JOIN estampa e on c.est_id = e.est_id

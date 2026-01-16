@@ -14,7 +14,7 @@
 			 class="main-image"
 			 src={actualItem.img[productCtx.actualPic]}
 	/>
-	<div class="other-images">
+	<div class="other-images side-margin">
 		{#each actualItem.img as img, idx (idx)}
 			<button
 				onclick={() => productCtx.actualPic = idx}
@@ -30,30 +30,45 @@
 </div>
 
 <style>
-    :root {
-        --main-image-width: 50vw;
-    }
-
-    img {
-        border-radius: 1rem;
-    }
-
     .image-wrapper {
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        height: fit-content;
         width: 100%;
-        align-items: center;
     }
 
     .other-images {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.5rem;
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+
+        img {
+            border-radius: 1rem;
+            overflow: hidden;
+            height: 4rem;
+        }
+    }
+
+    .main-image {
+        object-fit: cover;
+        width: 100vw;
+        aspect-ratio: 3/4;
     }
 
     .active {
-        border: 5px solid var(--brand-black);
+        outline: 2px solid color-mix(in srgb, var(--brand-orange), transparent 70%);
+        outline-offset: 4px;
+        border-radius: 1rem;
+    }
+
+    @media (min-width: 800px) {
+        .image-wrapper {
+            max-height: 85vh;
+        }
+
+        .main-image {
+            width: 100%;
+            aspect-ratio: 1/1;
+        }
     }
 </style>

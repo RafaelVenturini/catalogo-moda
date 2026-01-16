@@ -108,7 +108,6 @@
             border-radius: 1rem;
             object-fit: cover;
             aspect-ratio: 3/4;
-
         }
     }
 </style>

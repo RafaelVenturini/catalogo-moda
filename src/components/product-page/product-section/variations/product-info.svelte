@@ -11,22 +11,21 @@
 </script>
 
 <div class="product-info">
-	<h1>{product.nome}<br /><span>{product.estampas[actualPrint].nome}</span>
-	</h1>
+	<h1 class="h4">{product.nome}</h1>
+	<p class="h4">{product.estampas[actualPrint].nome}</p>
 	{#if FF_list}
 		<ProductSizes />
 	{/if}
 	<div class="product-price-and-reference">
 		{#if FF_price}
-			<h2>{toBRL(product.preco)}</h2>
+			<h2 class="h5">{toBRL(product.preco)}</h2>
 		{/if}
-		<span>Ref.: {product.ref}</span>
 	</div>
 </div>
 
 <style>
     .product-info {
-        width: 100%;
+        width: 96vw;
     }
 
     .product-price-and-reference {
@@ -35,17 +34,8 @@
         align-items: center;
     }
 
-    h1 {
-        font-size: 2rem;
-
-        span {
-            opacity: 0.5;
-        }
+    p.h4 {
+        opacity: 0.5;
     }
 
-    h2 {
-        font-size: 1.4rem;
-        color: var(--brand-orange);
-        font-weight: bold;
-    }
 </style>
