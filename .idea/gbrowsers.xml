@@ -11,6 +11,11 @@
       "name": "Catalogo Moda",
       "url": "http://localhost:5173/product"
     }
+  ],
+  "bookmarks": [
+    {
+      "url": "https://plugins.jetbrains.com/plugin/14458-gbrowser"
+    }
   ]
 }]]></component>
 </project>

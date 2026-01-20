@@ -25,8 +25,8 @@
 		<ProductImages />
 		<div class="product-data side-margin">
 			<ProductInfo />
-			<ProductSizes />
 			<OtherPrints />
+			<ProductSizes />
 			<Divider />
 			<ProductSpecs />
 			<Divider />

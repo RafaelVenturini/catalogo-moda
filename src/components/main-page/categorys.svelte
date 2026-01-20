@@ -60,6 +60,10 @@
         max-width: 120px;
     }
 
+    section {
+        margin-bottom: 2rem;
+    }
+
     @media (min-width: 800px) {
         .category-container {
             display: flex;

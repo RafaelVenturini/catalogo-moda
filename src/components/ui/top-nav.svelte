@@ -1,6 +1,6 @@
 <script>
-	import CommonWithoutLetters
-		from './svg/logo/common-without-letters.svelte';
+	import CommonSideLetters
+		from '@components/ui/svg/logo/common-side-letters.svelte';
 	import { FF_list } from '@utils/flags/front-features.js';
 	import ShoppingList from '@components/ui/shopping-list.svelte';
 </script>
@@ -9,7 +9,7 @@
 	<div>
 
 		<a class="header-logo" href="/">
-			<CommonWithoutLetters height="30" width="30" />
+			<CommonSideLetters height="30" width="100" />
 		</a>
 		<div class="header-icons">
 			{#if FF_list}
@@ -18,7 +18,6 @@
 		</div>
 	</div>
 </nav>
-
 
 <style>
     nav {

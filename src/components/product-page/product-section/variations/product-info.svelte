@@ -10,32 +10,47 @@
 
 </script>
 
-<div class="product-info">
-	<h1 class="h4">{product.nome}</h1>
-	<p class="h4">{product.estampas[actualPrint].nome}</p>
+<div class="info-wrapper">
+	<div class="main-info">
+		<h1 class="h4">{product.nome}</h1>
+		<h2 class="h5 right-text">{FF_price ? toBRL(product.preco) : null}</h2>
+		<p class="h4">{product.estampas[actualPrint].nome}</p>
+		<div>
+			<p class="h7 right-text reference-bubble">REF. {product.ref}</p>
+		</div>
+	</div>
 	{#if FF_list}
 		<ProductSizes />
 	{/if}
-	<div class="product-price-and-reference">
-		{#if FF_price}
-			<h2 class="h5">{toBRL(product.preco)}</h2>
-		{/if}
-	</div>
 </div>
 
 <style>
-    .product-info {
-        width: 96vw;
+    .info-wrapper {
+        width: 100%;
+        margin-bottom: 8px;
     }
 
-    .product-price-and-reference {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    .main-info {
+        display: grid;
+        grid-template-columns:  2fr 1fr;
+
+        div {
+            display: flex;
+            justify-content: right;
+        }
     }
 
     p.h4 {
         opacity: 0.5;
+    }
+
+    .reference-bubble {
+        width: fit-content;
+    }
+
+    .right-text {
+        text-align: right;
+        justify-content: right;
     }
 
 </style>

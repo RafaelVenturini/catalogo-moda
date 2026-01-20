@@ -38,7 +38,6 @@
 	<div class="product-info">
 		<h4 class="h6">{product.produto}</h4>
 		<h5 class="small-text">{product.estampa}</h5>
-		<span class="small-text">REF. {product.ref}</span>
 		<div class="price small-text">
 			{#if FF_price}
 				<h6>
@@ -75,18 +74,10 @@
         opacity: 0.7;
     }
 
-    span {
-        opacity: 0.4;
-    }
-
     h4, h5, h6 {
         text-align: left;
     }
 
-    span {
-        display: flex;
-        justify-content: left;
-    }
 
     .price {
         display: flex;

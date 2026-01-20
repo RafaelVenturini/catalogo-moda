@@ -16,11 +16,11 @@
 
 <style>
     div {
-        width: 100vw;
+        width: 100%;
         margin-bottom: 1rem;
 
         img {
-            width: 100vw;
+            width: 100%;
             max-height: 70vh;
         }
     }

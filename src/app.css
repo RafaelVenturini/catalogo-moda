@@ -12,18 +12,33 @@
     --main-color: #F1E6CF;
     --main-orange: #CB621E;
     --footer-color: #F6EEF3;
+    --header-height: 3.5rem;
+}
 
-    --header-height: 5rem;
+@font-face {
+    font-family: 'DM Sans';
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/font/DMSans-opsz-wght.woff2') format('woff2');
 }
 
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--brand-black);
 }
 
 .side-margin {
     margin: 0 20px;
+}
+
+.reference-bubble {
+    opacity: 70%;
+    background-color: #2C1C2410;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
 }
 
 .display-1 {

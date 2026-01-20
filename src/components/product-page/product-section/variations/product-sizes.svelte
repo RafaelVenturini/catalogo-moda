@@ -38,10 +38,10 @@
     }
 
     .product-size {
-        border-radius: 1rem;
+        border-radius: 0.5rem;
         background-color: #2C1C2410;
         text-align: center;
-        width: 3rem;
+        width: 2rem;
     }
 
     .size-wrapper {

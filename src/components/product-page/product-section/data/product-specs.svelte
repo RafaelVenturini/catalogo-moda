@@ -14,11 +14,7 @@
 </script>
 
 <section class="product-specs">
-	<div>
-		<h3 class="h3">Sobre o produto</h3>
-		<span class="h7">REF.
-			{product.ref}</span>
-	</div>
+	<h3 class="h6">Sobre o produto</h3>
 	<ul>
 		{#each specs as spec, idx (idx)}
 			{#if spec.value}
@@ -31,17 +27,7 @@
 
 <style>
     .product-specs {
-        div {
-            display: flex;
-            gap: 1rem;
-
-            .h7 {
-                opacity: 70%;
-                background-color: #2C1C2410;
-                padding: 0.5rem;
-                border-radius: 0.5rem;
-            }
-        }
+        margin-bottom: 8px;
     }
 
 

@@ -5,8 +5,9 @@
 	import Footer from '@components/ui/footer.svelte';
 	import { page } from '$app/state';
 	import { setContext } from 'svelte';
+	import type { ProductContext } from '@interfaces/context';
 
-	let productCtx = $state({
+	let productCtx: ProductContext = $state({
 		product: null,
 		actualPrint: 0,
 		actualPic: 0,
@@ -43,10 +44,6 @@
 <Footer />
 
 <style>
-    .side-margin {
-        margin-top: 2rem;
-    }
-
     header {
         height: var(--header-height);
     }

@@ -25,11 +25,11 @@ export interface Print {
 }
 
 export interface Size {
-	pp: boolean;
-	p: boolean;
-	m: boolean;
-	g: boolean;
-	gg: boolean;
+	pp: boolean | number;
+	p: boolean | number;
+	m: boolean | number;
+	g: boolean | number;
+	gg: boolean | number;
 }
 
 export interface ProductList {
