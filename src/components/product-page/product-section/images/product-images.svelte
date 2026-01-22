@@ -1,134 +1,147 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
-	import { ChevronLeft, ChevronRight } from '@lucide/svelte';
-	import type { ProductContext } from '@interfaces/context';
+	import type { Swiper as SwiperType } from 'swiper';
+	import Swiper from 'swiper';
+	import { Navigation, Pagination } from 'swiper/modules';
 
+	import 'swiper/css';
+	import 'swiper/css/navigation';
+	import 'swiper/css/pagination';
+	import { useProductState } from '@classes/product.svelte';
 
-	const productCtx: ProductContext = $state.raw(getContext('productCtx'));
-	const { product, actualPrint } = $derived(productCtx);
+	const productCtx = useProductState();
+	const pics = $derived(productCtx.getPics());
 
-	const actualItem = $derived(product?.estampas?.[actualPrint]);
-	const imgLen = $derived(actualItem?.img?.length);
+	let swiperContainer = $state<HTMLElement>();
+	let swiperInstance: SwiperType | undefined;
 
-	function changeImage(x: number) {
-		const newIdx = productCtx.actualPic + x;
-		if (newIdx < 0 || newIdx >= actualItem.img.length) return;
-		productCtx.actualPic = newIdx;
-	}
+	$effect(() => {
+		if (swiperContainer && pics.length > 0) {
+			if (swiperInstance) swiperInstance.destroy();
+			swiperInstance = new Swiper(swiperContainer, {
+				modules: [Navigation, Pagination],
+				loop: pics.length > 1,
+				navigation: {
+					nextEl: '.swiper-button-next',
+					prevEl: '.swiper-button-prev'
+				},
+				pagination: {
+					el: '.swiper-pagination',
+					clickable: true
+				},
+				slidesPerView: 1,
+				spaceBetween: 0
+			});
+		}
 
+		return () => {
+			if (swiperInstance) {
+				swiperInstance.destroy();
+			}
+		};
+	});
 </script>
-<div class="image-wrapper">
-	<img alt="Imagem principal"
-			 class="main-image"
-			 src={actualItem?.img[productCtx.actualPic]}
-	/>
 
-	<button
-		class={`
-			slide-arrow
-			${productCtx.actualPic !== 0 ? 'left' : 'hidden'}
-		`}
-		onclick={()=> changeImage(-1)}>
-		<ChevronLeft />
-	</button>
+<div class="gallery">
+	<div bind:this={swiperContainer} class="swiper">
+		<div class="swiper-wrapper">
+			{#each pics as img, idx (idx)}
+				<div class="swiper-slide">
+					<img
+						src={img}
+						alt="imagem do produto {idx + 1}"
+						width={1600}
+						height={1600}
+					/>
+				</div>
+			{/each}
+		</div>
 
-	<button
-		class={`
-			slide-arrow
-			${imgLen !== productCtx.actualPic+1 ? 'right' : 'hidden'}
-	 `}
-		onclick={()=> changeImage(+1)}>
-		<ChevronRight />
-	</button>
-
-	<div class="slide-index-wrapper">
-		{#each actualItem?.img as _, idx (idx)}
-			<div
-				class={
-				`slide-index
-				${productCtx.actualPic === idx ? "active" : null}
-				`}>
-			</div>
-		{/each}
+		{#if pics.length > 1}
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-button-next"></div>
+			<div class="swiper-pagination"></div>
+		{/if}
 	</div>
 </div>
 
 <style>
-    .image-wrapper {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
+    .gallery {
+        max-width: 100vw;
+        margin-bottom: 8px;
+        overflow: hidden;
+    }
+
+    .swiper {
         width: 100%;
-        margin-bottom: 1rem;
-        height: 60vh;
-        position: relative;
+        /*height: 600px;*/
     }
 
-    .slide-arrow {
-        position: absolute;
-        top: 50%;
-        background-color: rgba(255, 255, 255, 0.49);
-        border-radius: 50%;
-        padding: 2px;
-    }
-
-    .right {
-        right: 5px;
-    }
-
-    .left {
-        left: 5px;
-    }
-
-    .other-images {
+    .swiper-slide {
         display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
-
-        img {
-            border-radius: 1rem;
-            overflow: hidden;
-            height: 52px;
-        }
+        align-items: center;
+        justify-content: center;
+        background: #f5f5f5;
     }
 
-    .main-image {
-        object-fit: cover;
+    .swiper-slide img {
         width: 100%;
-        aspect-ratio: 3/4;
         height: 100%;
+        object-fit: cover;
     }
 
-    .slide-index-wrapper {
-        position: absolute;
-        right: 5px;
-        bottom: 5px;
-        display: flex;
-        flex-direction: row;
-        gap: 8px;
-    }
-
-    .slide-index {
+    :global(.swiper-button-prev),
+    :global(.swiper-button-next) {
+        opacity: 0.5;
+        background: white;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
-        border: 1px solid #FFFFFF;
-        height: 10px;
-        width: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
 
-    .active {
-        background-color: #FFFFFF;
+    :global(.swiper-navigation-icon) {
+        height: 50% !important;
+        width: 50% !important;
+        color: var(--brand-black);
+    }
+
+    :global(.swiper-button-prev:after),
+    :global(.swiper-button-next:after) {
+        font-size: 50%;
+        color: #333;
+        font-weight: bold;
+    }
+
+    :global(.swiper-button-disabled) {
+        opacity: 0.3;
+        pointer-events: none;
+    }
+
+    :global(.swiper-pagination) {
+        text-align: right;
+        right: 5rem;
+    }
+
+    :global(.swiper-pagination-bullet) {
+        background: transparent;
+        border: 2px solid white;
+        opacity: 0.5;
+        width: 10px;
+        height: 10px;
+    }
+
+    :global(.swiper-pagination-bullet-active) {
+        background-color: white;
+        opacity: 1;
+        border-radius: 40%;
         width: 20px;
-        border-radius: 1rem;
     }
 
     @media (min-width: 800px) {
-        .image-wrapper {
-            max-height: 85vh;
-        }
-
-        .main-image {
-            width: 100%;
-            aspect-ratio: 1/1;
+        .gallery {
+            width: 70vw;
+            max-height: 90vh;
+            margin-left: 20px;
         }
     }
 </style>

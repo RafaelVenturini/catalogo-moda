@@ -28,11 +28,14 @@
 				className="product-notif"
 			/>
 		{/if}
-		<img alt="Imagem do produto"
-				 height=1600
-				 loading="lazy"
-				 src={product.img}
-				 width=1600
+
+		<img
+			alt="Imagem do produto"
+			class="img-card"
+			height=1600
+			loading="lazy"
+			src={product.img}
+			width=1600
 		/>
 	</div>
 	<div class="product-info">
@@ -94,11 +97,11 @@
     .img-wrapper {
         position: relative;
         z-index: 1;
+    }
 
-        img {
-            border-radius: 1rem;
-            object-fit: cover;
-            aspect-ratio: 3/4;
-        }
+    .img-card {
+        border-radius: 1rem;
+        object-fit: cover;
+        aspect-ratio: 3/4;
     }
 </style>

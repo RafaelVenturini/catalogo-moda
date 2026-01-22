@@ -1,46 +1,42 @@
 <script>
-	import { getContext } from 'svelte';
+	import { useProductState } from '@classes/product.svelte';
 
-	const productCtx = $state.raw(getContext('productCtx'));
-	const estampas = $derived(productCtx.product.estampas);
+	const productCtx = useProductState();
+	const estampas = $derived(productCtx?.product?.estampas);
 </script>
 
-<h3 class="h6">Mais {estampas.length} opções deste produto:</h3>
-<div class="other-prints">
-	{#each estampas as estampa, idx (estampa.sku)}
-		<button
-			class={
+{#if estampas}
+	<h3 class="h6">{estampas.length} opções deste produto:</h3>
+	<div class="other-prints">
+		{#each estampas as estampa, idx (estampa.sku)}
+			<button
+				class={
 				`other-print
 				${productCtx.actualPrint === idx ? 'active' : 'inactive'}
 				`
 			}
-			onclick={() => {
-				productCtx.actualPrint = idx;
-				productCtx.actualPic = 0;
+				onclick={() => {
+				productCtx.setActualPrint(idx);
 			}}
-		>
-			{#if estampa.referencia[0] === '#'}
-				<div class="hex-color print-option"
-						 style={`background-color: ${estampa.referencia}`}></div>
-			{:else}
-				<img alt=""
-						 src={`https://backliss-production.up.railway.app/front-utils/print?print=${estampa.referencia}`}
-						 height=50 width=50
-						 loading="lazy"
-						 class="print-option" />
-			{/if}
-		</button>
-	{/each}
-</div>
+			>
+				{#if estampa.referencia[0] === '#'}
+					<div class="hex-color print-option"
+							 style={`background-color: ${estampa.referencia}`}></div>
+				{:else}
+					<img alt=""
+							 src={`https://backliss-production.up.railway.app/front-utils/print?print=${estampa.referencia}`}
+							 height=50 width=50
+							 loading="lazy"
+							 class="print-option" />
+				{/if}
+			</button>
+		{/each}
+	</div>
+{/if}
 
 <style>
     .h6 {
         margin-bottom: 1rem;
-    }
-
-    .hex-color {
-        height: 50px;
-        width: 50px;
     }
 
     .other-prints {
@@ -63,6 +59,8 @@
     .print-option {
         border-radius: 50%;
         object-fit: cover;
+        height: 52px;
+        width: 52px;
     }
 
     .active {

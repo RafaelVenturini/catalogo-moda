@@ -1,9 +1,8 @@
-<script>
+<script lang="ts">
 	import ProductImages
 		from '@components/product-page/product-section/images/product-images.svelte';
 	import ChangeQnty
 		from '@components/product-page/product-section/variations/change-qnty.svelte';
-	import { getContext } from 'svelte';
 	import { FF_list } from '@utils/flags/front-features';
 	import ProductInfo
 		from './product-section/variations/product-info.svelte';
@@ -13,12 +12,13 @@
 	import ProductSizes
 		from './product-section/variations/product-sizes.svelte';
 	import ProductTags from './product-section/data/product-tags.svelte';
+	import { useProductState } from '@classes/product.svelte';
 
-	const productCtx = $state.raw(getContext('productCtx'));
-	const product = $derived(productCtx.product);
+	const productCtx = useProductState();
 </script>
 
-{#if !product }
+
+{#if !productCtx.product }
 	<p>Produto não encontrado</p>
 {:else}
 	<section class="product-wrapper">

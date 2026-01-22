@@ -1,14 +1,14 @@
 <script>
-	import { getContext } from 'svelte';
+	import { useProductState } from '@classes/product.svelte';
 
-	const productCtx = $state.raw(getContext('productCtx'));
+	const productCtx = useProductState();
 	const product = $derived(productCtx.product);
-	const actualEstampa = $derived(product.estampas[productCtx.actualPrint]);
+	const actualEstampa = $derived(product?.estampas[productCtx.actualPrint]);
 
 	const specs = $derived([
-		{ label: 'Tecido', value: product.tecido },
-		{ label: 'Composição', value: actualEstampa.composicao },
-		{ label: 'Cuidados', value: actualEstampa.cuidados }
+		{ label: 'Tecido', value: product?.tecido },
+		{ label: 'Composição', value: actualEstampa?.composicao },
+		{ label: 'Cuidados', value: actualEstampa?.cuidados }
 	]);
 
 </script>

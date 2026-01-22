@@ -3,27 +3,29 @@
 	import { toBRL } from '@utils/money/toBRL';
 	import ProductSizes
 		from '@components/product-page/product-section/variations/product-sizes.svelte';
-	import { getContext } from 'svelte';
+	import { useProductState } from '@classes/product.svelte';
 
-	const productCtx = $state.raw(getContext('productCtx'));
-	const { product, actualPrint } = $derived(productCtx);
-
+	const productCtx = useProductState();
+	const product = $derived(productCtx.product);
+	const actualPrint = $derived(productCtx.actualPrint);
 </script>
 
-<div class="info-wrapper">
-	<div class="main-info">
-		<h1 class="h4">{product.nome}</h1>
-		<h2 class="h5 right-text">{FF_price ? toBRL(product.preco) : null}</h2>
-		<p class="h4">{product.estampas[actualPrint].nome}</p>
-		<div>
-			<p class="h7 right-text reference-bubble">REF. {product.ref}</p>
+{#if product}
+	<div class="info-wrapper">
+		<div class="main-info">
+			<h1 class="h4">{product.nome}</h1>
+			<h2
+				class="h5 right-text">{FF_price ? toBRL(product.preco) : null}</h2>
+			<p class="h4">{product.estampas[actualPrint].nome}</p>
+			<div>
+				<p class="h7 right-text reference-bubble">REF. {product.ref}</p>
+			</div>
 		</div>
+		{#if FF_list}
+			<ProductSizes />
+		{/if}
 	</div>
-	{#if FF_list}
-		<ProductSizes />
-	{/if}
-</div>
-
+{/if}
 <style>
     .info-wrapper {
         width: 100%;

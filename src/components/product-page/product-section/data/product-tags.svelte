@@ -1,13 +1,12 @@
 <script>
 	import { slugfier } from '@utils/re-use/slugfier';
-	import { getContext } from 'svelte';
+	import { useProductState } from '@classes/product.svelte';
 
-	const productCtx = $state.raw(getContext('productCtx'));
-	let idx = $derived(productCtx.actualPrint);
-	let tags = $derived(productCtx.product.estampas[idx].tag);
+	const productCtx = useProductState();
+
+	let tags = $derived(productCtx.getTags());
 </script>
-
-{#if tags}
+{#if tags.length > 0}
 	<h3>Tags:</h3>
 	<div class="product-tags">
 		{#each tags as tag, idx (idx)}

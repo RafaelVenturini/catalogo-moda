@@ -34,7 +34,6 @@ export const GET: RequestHandler = async ({ params }) => {
 				sql = especificItemSql;
 				sqlParam.push(subt);
 				[data] = await pool.query<SelectOneItem[]>(sql, sqlParam);
-				console.log('API content: ', data);
 				resp = arrangeUniqueProduct(data);
 				return new Response(JSON.stringify(resp), { status: 200 });
 

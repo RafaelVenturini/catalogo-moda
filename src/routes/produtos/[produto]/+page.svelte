@@ -4,30 +4,16 @@
 	import TopNav from '@components/ui/top-nav.svelte';
 	import Footer from '@components/ui/footer.svelte';
 	import { page } from '$app/state';
-	import { setContext } from 'svelte';
-	import type { ProductContext } from '@interfaces/context';
+	import { provideProductContext } from '@classes/product.svelte';
 
-	let productCtx: ProductContext = $state({
-		product: null,
-		actualPrint: 0,
-		actualPic: 0,
-		sizes: { pp: 0, p: 0, m: 0, g: 0, gg: 0 }
-	});
-
-	setContext('productCtx', productCtx);
+	const productCtx = provideProductContext();
 
 	const searchProduct = $derived(page.params.produto);
 	const searchPrint = $derived(page.url.searchParams.get('estampa'));
 
 	$effect(() => {
-		fetch(`/api/produtos/produto/${searchProduct}`)
-			.then(res => res.json())
-			.then(data => {
-				productCtx.product = data;
-				productCtx.actualPrint = searchPrint ? Number(searchPrint) : 0;
-				productCtx.actualPic = 0;
-			})
-			.catch(err => console.error(err));
+		if (!searchProduct) return;
+		productCtx.setProduct(searchProduct, searchPrint);
 	});
 </script>
 
