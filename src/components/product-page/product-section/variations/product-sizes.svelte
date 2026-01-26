@@ -30,36 +30,40 @@
 			{/each}
 		</div>
 	</div>
+{:else}
+	<div class="skeleton shimmer">loading</div>
 {/if}
+
 <style>
-    .product-sizes {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 0.5rem;
-        justify-items: center;
-        width: 100%;
-    }
+	.product-sizes {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		gap: 0.5rem;
+		justify-items: center;
+		width: 100%;
+	}
 
-    .product-size {
-        border-radius: 0.5rem;
-        background-color: #2C1C2410;
-        text-align: center;
-        width: 2rem;
-    }
+	.product-size {
+		border-radius: 0.5rem;
+		background-color: #3b332b10;
+		text-align: center;
+		width: 2rem;
+	}
 
-    .size-wrapper {
-        display: flex;
-    }
+	.size-wrapper {
+		display: flex;
+	}
 
-    .h7 {
-        opacity: 70%;
-    }
+	.h7 {
+		opacity: 70%;
+		color: #3b332b;
+	}
 
-    .disabled {
-        opacity: 0.5;
-    }
+	.disabled {
+		opacity: 0.5;
+	}
 
-    .selected {
-        background-color: #2C1C2440;
-    }
+	.selected {
+		background-color: #2c1c2440;
+	}
 </style>

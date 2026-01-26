@@ -7,9 +7,14 @@
 	import 'swiper/css/navigation';
 	import 'swiper/css/pagination';
 	import { useProductState } from '@classes/product.svelte';
+	import { ArrowLeft } from '@lucide/svelte';
+	import ImgSkeleton from '@components/ui/skeletons/img-skeleton.svelte';
+	import { fade } from 'svelte/transition';
 
 	const productCtx = useProductState();
 	const pics = $derived(productCtx.getPics());
+
+	let loading = $state(true);
 
 	let swiperContainer = $state<HTMLElement>();
 	let swiperInstance: SwiperType | undefined;
@@ -42,8 +47,22 @@
 </script>
 
 <div class="gallery">
+	<!-- {#if loading}
+	<div>
+		<ImgSkeleton />
+	</div>
+	{/if} -->
+	<div class="gallery-header">
+		<a class="back-button" href="/">
+			<ArrowLeft />
+			Voltar
+		</a>
+	</div>
 	<div bind:this={swiperContainer} class="swiper">
 		<div class="swiper-wrapper">
+			{#if loading}
+				<ImgSkeleton />
+			{/if}
 			{#each pics as img, idx (idx)}
 				<div class="swiper-slide">
 					<img
@@ -51,6 +70,7 @@
 						alt="imagem do produto {idx + 1}"
 						width={1600}
 						height={1600}
+						onload={() => (loading = false)}
 					/>
 				</div>
 			{/each}
@@ -65,83 +85,119 @@
 </div>
 
 <style>
-    .gallery {
-        max-width: 100vw;
-        margin-bottom: 8px;
-        overflow: hidden;
-    }
+	.gallery {
+		max-width: 100vw;
+		height: 60vh;
+		margin-bottom: 24px;
+		position: relative;
+	}
 
-    .swiper {
-        width: 100%;
-        /*height: 600px;*/
-    }
+	.gallery-header {
+		position: sticky;
+		z-index: 100;
+		top: 8px;
+		left: 8px;
+		width: fit-content;
+		pointer-events: none;
+	}
 
-    .swiper-slide {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #f5f5f5;
-    }
+	.back-button {
+		background-color: white;
+		opacity: 0.7;
+		padding: 8px;
+		display: flex;
+		flex-direction: row;
+		gap: 1rem;
+		border-radius: 3rem;
+		pointer-events: all;
+	}
 
-    .swiper-slide img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+	.swiper {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		margin-top: -40px;
+	}
 
-    :global(.swiper-button-prev),
-    :global(.swiper-button-next) {
-        opacity: 0.5;
-        background: white;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    }
+	.swiper-slide {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #f5f5f5;
+	}
 
-    :global(.swiper-navigation-icon) {
-        height: 50% !important;
-        width: 50% !important;
-        color: var(--brand-black);
-    }
+	.swiper-slide > * {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
 
-    :global(.swiper-button-prev:after),
-    :global(.swiper-button-next:after) {
-        font-size: 50%;
-        color: #333;
-        font-weight: bold;
-    }
+	:global(.swiper-button-prev),
+	:global(.swiper-button-next) {
+		opacity: 0.7;
+		background: white;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	}
 
-    :global(.swiper-button-disabled) {
-        opacity: 0.3;
-        pointer-events: none;
-    }
+	:global(.swiper-navigation-icon) {
+		height: 50% !important;
+		width: 50% !important;
+		color: var(--brand-black);
+	}
 
-    :global(.swiper-pagination) {
-        text-align: right;
-        right: 5rem;
-    }
+	:global(.swiper-button-prev:after),
+	:global(.swiper-button-next:after) {
+		font-size: 50%;
+		color: #333;
+		font-weight: bold;
+	}
 
-    :global(.swiper-pagination-bullet) {
-        background: transparent;
-        border: 2px solid white;
-        opacity: 0.5;
-        width: 10px;
-        height: 10px;
-    }
+	:global(.swiper-button-disabled) {
+		opacity: 0.3;
+		pointer-events: none;
+	}
 
-    :global(.swiper-pagination-bullet-active) {
-        background-color: white;
-        opacity: 1;
-        border-radius: 40%;
-        width: 20px;
-    }
+	:global(.swiper-pagination) {
+		text-align: right;
+		right: 5rem;
+	}
 
-    @media (min-width: 800px) {
-        .gallery {
-            width: 70vw;
-            max-height: 90vh;
-            margin-left: 20px;
-        }
-    }
+	:global(.swiper-pagination-bullet) {
+		background: transparent;
+		border: 2px solid white;
+		opacity: 0.5;
+		width: 10px;
+		height: 10px;
+	}
+
+	:global(.swiper-pagination-bullet-active) {
+		background-color: white;
+		opacity: 1;
+		border-radius: 20px;
+		width: 20px;
+	}
+
+	@media (min-width: 800px) {
+		.swiper {
+			margin-top: 0;
+		}
+
+		.gallery {
+			width: 70vw;
+			height: 100%;
+			margin-left: 20px;
+		}
+
+		.back-button {
+			display: none;
+		}
+		.swiper-slide {
+			img {
+				object-fit: contain;
+			}
+		}
+	}
 </style>

@@ -11,36 +11,50 @@
 		{ label: 'Cuidados', value: actualEstampa?.cuidados }
 	]);
 
+	const loadClass = $derived(product ? '' : ' shimmer skeleton');
 </script>
 
 <section class="product-specs">
-	<h3 class="h6">Sobre o produto</h3>
+	<h3 class={`h6 ${loadClass}`}>Sobre o produto</h3>
 	<ul>
 		{#each specs as spec, idx (idx)}
 			{#if spec.value}
-				<ol class="base-text"><span class="spec-title">{spec.label}</span>:
-					{spec.value}</ol>
+				<ol class="base-text">
+					<span class="spec-title">{spec.label}</span>:
+					{spec.value}
+				</ol>
 			{/if}
 		{/each}
+		{#if !product}
+			<ol class={loadClass}>.</ol>
+			<ol class={loadClass}>.</ol>
+			<ol class={loadClass}>.</ol>
+		{/if}
 	</ul>
 </section>
 
 <style>
-    .product-specs {
-        margin-bottom: 8px;
-    }
+	.product-specs {
+		margin-bottom: 8px;
+	}
 
+	.h6 {
+		margin-bottom: 8px;
+	}
 
-    ul {
-        gap: 0.5rem;
-        display: grid;
+	ul {
+		gap: 0.5rem;
+		display: grid;
 
-        ol {
-            opacity: 70%;
+		ol {
+			opacity: 70%;
 
-            .spec-title {
-                font-weight: bold;
-            }
-        }
-    }
+			.spec-title {
+				font-weight: bold;
+			}
+		}
+		.skeleton {
+			width: 50%;
+		}
+	}
 </style>

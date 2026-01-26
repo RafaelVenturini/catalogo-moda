@@ -1,58 +1,66 @@
 <script>
 	import { FF_list, FF_price } from '@utils/flags/front-features';
 	import { toBRL } from '@utils/money/toBRL';
-	import ProductSizes
-		from '@components/product-page/product-section/variations/product-sizes.svelte';
 	import { useProductState } from '@classes/product.svelte';
 
 	const productCtx = useProductState();
 	const product = $derived(productCtx.product);
 	const actualPrint = $derived(productCtx.actualPrint);
+
+	const loadClass = $derived(product ? '' : ' shimmer skeleton');
 </script>
 
-{#if product}
-	<div class="info-wrapper">
-		<div class="main-info">
-			<h1 class="h4">{product.nome}</h1>
-			<h2
-				class="h5 right-text">{FF_price ? toBRL(product.preco) : null}</h2>
-			<p class="h4">{product.estampas[actualPrint].nome}</p>
-			<div>
-				<p class="h7 right-text reference-bubble">REF. {product.ref}</p>
-			</div>
+<div class="info-wrapper">
+	<div class="main-info">
+		<div class="left">
+			<h1 class={`h4 ${loadClass}`}>{product ? product.nome : '##########'}</h1>
+			<p class={`h4 ${loadClass}`}>{product ? product.estampas[actualPrint].nome : '######'}</p>
 		</div>
-		{#if FF_list}
-			<ProductSizes />
-		{/if}
+		<div class="right">
+			<h2 class={`h5 right-text ${loadClass}`}>
+				{FF_price ? (product ? toBRL(product.preco) : 'R$##,##') : null}
+			</h2>
+			<p class={`h7 right-text reference-bubble ${loadClass}`}>
+				REF. {product ? product.ref : '####'}
+			</p>
+		</div>
 	</div>
-{/if}
+</div>
+
 <style>
-    .info-wrapper {
-        width: 100%;
-        margin-bottom: 8px;
-    }
+	.info-wrapper {
+		width: 100%;
+		margin-bottom: 8px;
+	}
 
-    .main-info {
-        display: grid;
-        grid-template-columns:  2fr 1fr;
+	.main-info {
+		display: grid;
+		grid-template-columns: 2fr 1fr;
+	}
 
-        div {
-            display: flex;
-            justify-content: right;
-        }
-    }
+	.left {
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+	}
 
-    p.h4 {
-        opacity: 0.5;
-    }
+	.right {
+		display: flex;
+		flex-direction: column;
+		align-items: end;
+	}
 
-    .reference-bubble {
-        width: fit-content;
-    }
+	p.h4 {
+		opacity: 70%;
+		color: #3b332b;
+	}
 
-    .right-text {
-        text-align: right;
-        justify-content: right;
-    }
+	.reference-bubble {
+		width: fit-content;
+	}
 
+	.right-text {
+		text-align: right;
+		justify-content: right;
+	}
 </style>

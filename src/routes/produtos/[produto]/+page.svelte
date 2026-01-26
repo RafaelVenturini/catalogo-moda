@@ -11,6 +11,8 @@
 	const searchProduct = $derived(page.params.produto);
 	const searchPrint = $derived(page.url.searchParams.get('estampa'));
 
+	const product = $derived(productCtx.product);
+
 	$effect(() => {
 		if (!searchProduct) return;
 		productCtx.setProduct(searchProduct, searchPrint);
@@ -23,18 +25,24 @@
 <main class="margin-header">
 	<ProductPage />
 	<div class="side-margin">
-		<h4>Veja também</h4>
+		<h4 class={product ? 'h6' : 'skeleton shimmer'}>Veja também</h4>
 		<ProductsAvailable />
 	</div>
 </main>
 <Footer />
 
 <style>
-    header {
-        height: var(--header-height);
-    }
+	main {
+		margin: 0;
+	}
 
-    main {
-        margin: 0;
-    }
+	header {
+		height: var(--header-height);
+	}
+
+	@media (max-width: 800px) {
+		header {
+			display: none;
+		}
+	}
 </style>
